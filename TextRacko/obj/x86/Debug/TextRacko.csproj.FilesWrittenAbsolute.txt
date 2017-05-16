@@ -1,0 +1,5 @@
+/Users/mattferet/Projects/TextRacko/TextRacko/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/mattferet/Projects/TextRacko/TextRacko/bin/Debug/TextRacko.exe.mdb
+/Users/mattferet/Projects/TextRacko/TextRacko/bin/Debug/TextRacko.exe
+/Users/mattferet/Projects/TextRacko/TextRacko/obj/x86/Debug/TextRacko.exe
+/Users/mattferet/Projects/TextRacko/TextRacko/obj/x86/Debug/TextRacko.exe.mdb
