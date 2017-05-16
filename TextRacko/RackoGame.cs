@@ -9,14 +9,8 @@ namespace TextRacko
 {
 
 	public class RackoGame
-	/* Rules: 52 normal card deck. each player starts with 26 cards, face down. 
-	 * In unison, players flip cards to reveal the top card 1 at a time.
-	 * If player A's card has a higher rank than player B's card, (2-A) player A's 
-	 * gets both cards and places them at the bottom of their hand.
-	 * If the cards are the same value both players place 3 cards face-down and 
-	 * flip and compare a fourth card. Whomever has the greater ranking card between 
-	 * the two wins all the cards in that round. Game ends when 1 player runs out of cards.
-	 * thus, other player wins.
+	/* Rules: 
+	 * Order your rack in ascending order!
 	 * Written by: Mattthew Feret
 	 * */
 	{
@@ -29,7 +23,7 @@ namespace TextRacko
 		static RackoGame ()
 		{
 			bool play = false;
-			Console.WriteLine ("\n\nRacko!!!\n");
+			Console.WriteLine ("\n\t\tRacko!!!\nGoal: Order your rack in ascending order.");
 			Console.WriteLine ("How many players?\nEnter a 2 3 or 4, or Q for quit.");
 			Console.Write ("Entry: ");
 			String input = Console.ReadLine ().ToUpper ();
@@ -85,102 +79,138 @@ namespace TextRacko
 					deck.RemoveRange (0, 20);
 					//add 1 card from deck to discardDeck
 					discardDeck.Add (deck.ElementAt (0));
+
+
+
 					//and remove from deck.
 					deck.RemoveAt (0);
 
 					//					Console.WriteLine ("Player1 count: " + player1.Count());
 					//					Console.WriteLine ("Player2 Count: " + player2.Count());
-					Console.WriteLine ("Player 1 Rack:");
-					foreach (int c in player1) {
-						Console.WriteLine (c);
-					}
-					Console.WriteLine ("-----------------------");
-					Console.WriteLine ("[1] --- To Draw: card " + discardDeck.ElementAt (discardDeck.Count () - 1) + " from discard pile." +
-						"\n" + "[2] --- To Draw from top of deck." +
-						"\n[3] --- To swap 2 cards' positions in rack.");
-					String entry = Console.ReadLine ().ToUpper ().Trim ();
+					bool win = false;
+					while (!win) {
+						Console.WriteLine ("Discard pile:");
+						foreach (int c in discardDeck) {
+							Console.WriteLine (c );
+						}
+						Console.WriteLine ("-----------------------");
 
-					if (entry == "1") { //draw from discard pile
-						Console.Write ("OK --- card " + discardDeck.ElementAt (discardDeck.Count () - 1) + " Drawn. Enter card you'd like to replace: ");
-						String removeCard = Console.ReadLine ().ToUpper ().Trim ();
-						int numberToRemove;
-						Int32.TryParse (removeCard, out numberToRemove);
-						//player gets top discarded card
-						if (player1.Contains (numberToRemove)) {
-							player1 [player1.IndexOf (numberToRemove)] = discardDeck.ElementAt (discardDeck.Count () - 1);
-							//remove card from hand and from discarded deck
-							player1.Remove (numberToRemove);
-							discardDeck.RemoveAt (discardDeck.Count () - 1);
+						Console.WriteLine ("Player 1 Rack:");
+						foreach (int c in player1) {
+							Console.WriteLine (c);
+						}
+						Console.WriteLine ("-----------------------");
+						Console.WriteLine ("Options: Press number in brackets.");
+
+						Console.WriteLine ("[1] --- Draw card " + discardDeck.ElementAt (discardDeck.Count () - 1) + " from discard pile." +
+						"\n" + "[2] --- Draw from top of deck." +
+						"\n[3] --- Swap 2 cards' positions in rack.");
+						String entry = Console.ReadLine ().ToUpper ().Trim ();
+
+						if (entry == "1") { //draw from discard pile
+							Console.Write ("OK --- card " + discardDeck.ElementAt (discardDeck.Count () - 1) + " Drawn. Enter card you'd like to replace: ");
+							String removeCard = Console.ReadLine ().ToUpper ().Trim ();
+							int numberToRemove;
+							Int32.TryParse (removeCard, out numberToRemove);
+							//player gets top discarded card
+							if (player1.Contains (numberToRemove)) {
+								//add card at pos0 to playerhand
+								player1 [player1.IndexOf (numberToRemove)] = discardDeck.ElementAt (discardDeck.Count () - 1);
+								//remove card from hand and from discarded deck
+								player1.Remove (numberToRemove);
+								discardDeck.RemoveAt (discardDeck.Count () - 1);
+								//add card back to discard deck.
+								discardDeck.Add(numberToRemove);
+							}
+
+							//add case of bad input TODO
+						} else if (entry == "2") { //draw from deck
+							Console.Write ("OK. Card Drawn is: " + deck.ElementAt (0) + " -- Enter card you'd like to replace: ");
+							string replace = Console.ReadLine ();
+							int number3;
+							Int32.TryParse (replace, out number3);
+							if (player1.Contains (number3)) {
+								player1 [player1.IndexOf (number3)] = deck.ElementAt (0);
+								//remove card from hand and from discarded deck
+								player1.Remove (number3);
+								deck.RemoveAt (0);
+								discardDeck.Add (number3);
+							}
+						} else if (entry == "3") { //else swap 2 cards.
+							Console.Write ("OK. Enter 2 cards you'd like switch - Card 1: ");
+							string switchNums = Console.ReadLine ();
+							int number;
+							Int32.TryParse (switchNums, out number);
+							Console.Write ("And card 2: ");
+							string switchNums2 = Console.ReadLine ();
+							int number2;
+							Int32.TryParse (switchNums2, out number2);
+							//while (good) {
+							//now switch cards.
+							if (player1.Contains (number) && player1.Contains (number2)) {
+								swap (player1, player1.IndexOf (number), player1.IndexOf (number2));
+							}
+							//}
 						}
 
-						//add case of bad input TODO
-					} else if (entry == "2") { //draw from deck
-						Console.Write ("OK. Card Drawn is: " + deck.ElementAt (0) + " -- Enter card you'd like to replace: ");
-						string replace = Console.ReadLine ();
-						int number3;
-						Int32.TryParse (replace, out number3);
-						if (player1.Contains (number3)) {
-							player1 [player1.IndexOf (number3)] = deck.ElementAt (0);
-							//remove card from hand and from discarded deck
-							player1.Remove (number3);
-							deck.RemoveAt (0);
+//						//print out new rack!
+//						Console.WriteLine ("Player 1 New Rack:");
+//						foreach (int c in player1) {
+//							Console.WriteLine (c);
+//						}
+						if (IsSorted (player1)) {
+							Console.WriteLine ("BINGO BANGO RACKO!!!!");
+							Console.WriteLine ("Cards are in ascending order: You win!!!");
+							win = true;
+
 						}
-					} else if (entry == "3") { //else swap 2 cards.
-						Console.Write ("OK. Enter 2 cards you'd like switch - Card 1: ");
-						string switchNums = Console.ReadLine ();
-						int number;
-						Int32.TryParse (switchNums, out number);
-						Console.Write ("And card 2: ");
-						string switchNums2 = Console.ReadLine ();
-						int number2;
-						Int32.TryParse (switchNums2, out number2);
-						//while (good) {
-						//now switch cards.
-						if (player1.Contains (number) && player1.Contains (number2)) {
-							swap (player1, player1.IndexOf (number), player1.IndexOf (number2));
-						}
-						//}
+
+
+						Console.WriteLine ("-----------------------");
+
+
+
+
+
+//					Console.WriteLine ("Player2hand:");
+//					foreach (int c in player2) {
+//						Console.WriteLine (c);
+//					}
+//					Console.WriteLine ("---------------\nDeck:");
+//
+//					//print deck
+//					foreach (int c in deck) {
+//						Console.WriteLine (c);
+//					}
+//					Console.WriteLine ("Deck count: " + deck.Count());
+
 					}
-
-					//print out new rack!
-					Console.WriteLine ("Player 1 New Rack:");
-					foreach (int c in player1) {
-						Console.WriteLine (c);
+					if (players == 3) {
+						//Player1
+						//player2
+						//player3
 					}
-
-					Console.WriteLine ("-----------------------");
-
-
-
-
-
-					Console.WriteLine ("Player2hand:");
-					foreach (int c in player2) {
-						Console.WriteLine (c);
+					if (players == 4) {
+						//Player1
+						//player2
+						//player3
+						//player4
 					}
-					Console.WriteLine ("---------------\nDeck:");
-
-					//print deck
-					foreach (int c in deck) {
-						Console.WriteLine (c);
-					}
-					Console.WriteLine ("Deck count: " + deck.Count());
-
 				}
-				if (players == 3) {
-					//Player1
-					//player2
-					//player3
-				}
-				if (players == 4) {
-					//Player1
-					//player2
-					//player3
-					//player4
-				}
-
 			}
 
+		}
+
+		public static bool IsSorted(List<int> list)
+		{
+			for (int i = 1; i < list.Count(); i++)
+			{
+				if (list[i - 1] > list[i])
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 		public static void swap<T>(IList<T> list, int indexA, int indexB)
@@ -189,7 +219,7 @@ namespace TextRacko
 			list[indexA] = list[indexB];
 			list[indexB] = tmp;
 		}
-
+			
 
 
 		public static List<int> createDeck (int deckLength)
