@@ -19,11 +19,16 @@ namespace TextRacko
 		private const int NUM_OF_CARDS4 = 60;
 		private static int cardAmount = 0;
 		private const int MAXROUNDS = 1500;
+		private static int turn = 0;
 
 		static RackoGame ()
 		{
 			bool play = false;
-			Console.WriteLine ("\n\t\tRacko!!!\nGoal: Order your rack in ascending order.");
+			Console.WriteLine ("-------------------------------------------------");
+
+			Console.WriteLine ("\t\tRacko!!!\nGoal: Order your rack in ascending order.");
+			Console.WriteLine ("-------------------------------------------------");
+
 			Console.WriteLine ("How many players?\nEnter a 2 3 or 4, or Q for quit.");
 			Console.Write ("Entry: ");
 			String input = Console.ReadLine ().ToUpper ();
@@ -89,6 +94,7 @@ namespace TextRacko
 					//					Console.WriteLine ("Player2 Count: " + player2.Count());
 					bool win = false;
 					while (!win) {
+						turn++;
 						Console.WriteLine ("Discard pile:");
 						foreach (int c in discardDeck) {
 							Console.WriteLine (c );
@@ -105,6 +111,8 @@ namespace TextRacko
 						Console.WriteLine ("[1] --- Draw card " + discardDeck.ElementAt (discardDeck.Count () - 1) + " from discard pile." +
 						"\n" + "[2] --- Draw from top of deck." +
 						"\n[3] --- Swap 2 cards' positions in rack.");
+						Console.Write ("Entry: ");
+
 						String entry = Console.ReadLine ().ToUpper ().Trim ();
 
 						if (entry == "1") { //draw from discard pile
@@ -159,8 +167,13 @@ namespace TextRacko
 //							Console.WriteLine (c);
 //						}
 						if (IsSorted (player1)) {
-							Console.WriteLine ("BINGO BANGO RACKO!!!!");
+							Console.WriteLine ("\n-----------------------");
+							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
 							Console.WriteLine ("Cards are in ascending order: You win!!!");
+							if(turn <= 100)
+								Console.WriteLine ("Your score: " + (100-turn));
+							else
+								Console.WriteLine ("Your score is 100 - turns you took. Score: 0 - better luck next time!");
 							win = true;
 
 						}
