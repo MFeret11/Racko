@@ -60,6 +60,7 @@ namespace TextRacko
 				int players = Int32.Parse (input);
 				//createDeck based on amount of players we have selected. Shuffled too.
 				List<int> deck = createDeck (cardAmount);
+				shuffleDeck (deck);
 				//create discard deck
 				List<int> discardDeck = new List <int> (){ };
 
@@ -153,19 +154,12 @@ namespace TextRacko
 							string switchNums2 = Console.ReadLine ();
 							int number2;
 							Int32.TryParse (switchNums2, out number2);
-							//while (good) {
-							//now switch cards.
+
 							if (player1.Contains (number) && player1.Contains (number2)) {
 								swap (player1, player1.IndexOf (number), player1.IndexOf (number2));
 							}
-							//}
 						}
-
-//						//print out new rack!
-//						Console.WriteLine ("Player 1 New Rack:");
-//						foreach (int c in player1) {
-//							Console.WriteLine (c);
-//						}
+							
 						if (IsSorted (player1)) {
 							Console.WriteLine ("\n-----------------------");
 							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
@@ -234,8 +228,22 @@ namespace TextRacko
 		}
 			
 
+		public static List<int> shuffleDeck(List<int> list){
+			//shuffle deck
+			int n = list.Count();
+			Random range = new Random ();
+			while (n > 1) {
+				int i = (range.Next (0, n) % n);
+				n--;
+				int value = list [i];
+				list [i] = list [n];
+				list [n] = value;
+			}
+			return list;
+		}
 
-		public static List<int> createDeck (int deckLength)
+
+		public static List<int> createDeck(int deckLength)
 		{
 			Console.WriteLine ("-----------------------");
 			//create list
@@ -245,17 +253,6 @@ namespace TextRacko
 				int value = y;
 				newDeck.Add (value);
 			}
-			//shuffle deck
-			int n = deckLength;
-			Random range = new Random ();
-			while (n > 1) {
-				int i = (range.Next (0, n) % n);
-				n--;
-				int value = newDeck [i];
-				newDeck [i] = newDeck [n];
-				newDeck [n] = value;
-			}
-
 			return newDeck;
 		}
 
