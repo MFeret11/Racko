@@ -98,7 +98,7 @@ namespace TextRacko
 						turn++;
 						Console.WriteLine ("Discard pile:");
 						foreach (int c in discardDeck) {
-							Console.WriteLine (c );
+							Console.WriteLine (c);
 						}
 						Console.WriteLine ("-----------------------");
 
@@ -129,7 +129,7 @@ namespace TextRacko
 								player1.Remove (numberToRemove);
 								discardDeck.RemoveAt (discardDeck.Count () - 1);
 								//add card back to discard deck.
-								discardDeck.Add(numberToRemove);
+								discardDeck.Add (numberToRemove);
 							}
 
 							//add case of bad input TODO
@@ -164,8 +164,8 @@ namespace TextRacko
 							Console.WriteLine ("\n-----------------------");
 							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
 							Console.WriteLine ("Cards are in ascending order: You win!!!");
-							if(turn <= 100)
-								Console.WriteLine ("Your score: " + (100-turn));
+							if (turn <= 100)
+								Console.WriteLine ("Your score: " + (100 - turn));
 							else
 								Console.WriteLine ("Your score is 100 - turns you took. Score: 0 - better luck next time!");
 							win = true;
@@ -208,29 +208,28 @@ namespace TextRacko
 
 		}
 
-		public static bool IsSorted(List<int> list)
+		public static bool IsSorted (List<int> list)
 		{
-			for (int i = 1; i < list.Count(); i++)
-			{
-				if (list[i - 1] > list[i])
-				{
+			for (int i = 1; i < list.Count (); i++) {
+				if (list [i - 1] > list [i]) {
 					return false;
 				}
 			}
 			return true;
 		}
 
-		public static void swap<T>(IList<T> list, int indexA, int indexB)
+		public static void swap<T> (IList<T> list, int indexA, int indexB)
 		{
-			T tmp = list[indexA];
-			list[indexA] = list[indexB];
-			list[indexB] = tmp;
+			T tmp = list [indexA];
+			list [indexA] = list [indexB];
+			list [indexB] = tmp;
 		}
-			
 
-		public static List<int> shuffleDeck(List<int> list){
+
+		public static List<int> shuffleDeck (List<int> list)
+		{
 			//shuffle deck
-			int n = list.Count();
+			int n = list.Count ();
 			Random range = new Random ();
 			while (n > 1) {
 				int i = (range.Next (0, n) % n);
@@ -243,7 +242,7 @@ namespace TextRacko
 		}
 
 
-		public static List<int> createDeck(int deckLength)
+		public static List<int> createDeck (int deckLength)
 		{
 			Console.WriteLine ("-----------------------");
 			//create list
