@@ -1,1 +1,13 @@
-﻿<Properties StartupItem="TextRacko/TextRacko.csproj" />
+﻿<Properties StartupItem="TextRacko/TextRacko.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TextRacko/RackoGame.cs">
+    <Files>
+      <File FileName="TextRacko/Program.cs" Line="10" Column="1" />
+      <File FileName="TextRacko/RackoGame.cs" Line="103" Column="53" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -160,9 +160,9 @@ namespace TextRacko
 							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
 							Console.WriteLine ("Cards are in ascending order: Good  job!!!");
 							if (turn <= 100)
-								Console.WriteLine ("Your score: " + (100 - turn));
+								Console.WriteLine ("Your score: " + (100 - turn) + ". You took " + turn + "turns to achieve racko.");
 							else
-								Console.WriteLine ("Your score is 100 - turns you took. Score: 0 - better luck next time!");
+								Console.WriteLine ("Your score is 0 - better luck next time!");
 							win = true;
 
 						}
@@ -267,34 +267,16 @@ namespace TextRacko
 
 		public static void printRack(List<int> rack){
 			foreach (int c in rack) {
+				string space = "";
 				if( c == rack[0])
 					Console.WriteLine ("0");
-				if(c <= 5)
-					Console.WriteLine ("  |"+ c +"        |");
-				if(c > 5 && c <= 9)
-					Console.WriteLine ("  |"+ c +"        |");
-				if(c == 10)
-					Console.WriteLine ("  | "+ c+ "       |");
-				if(c > 10 && c <= 15)
-					Console.WriteLine ("  |  " + c+ "     |");
-				if(c > 15 && c <= 20)
-					Console.WriteLine ("  |   " + c+ "    |");
-				if(c > 20 && c <= 25)
-					Console.WriteLine ("  |    " + c+ "   |");
-				if(c > 25 && c <= 30)
-					Console.WriteLine ("  |     " + c+ "  |");
-				if(c > 30 && c <= 35)
-					Console.WriteLine ("  |      " + c+ " |");
-				if(c > 35 && c <= 40)
-					Console.WriteLine ("  |       " + c+ "|");
-//				if(c > 40 && c <= 45)
-//					Console.WriteLine ("  |        " + c+ "  |");
-//				if(c > 45 && c <= 50)
-//					Console.WriteLine ("  |         " + c+ " |");
-//				if (c > 50)
-//					Console.WriteLine ("  |          " + c+ "|");
+				Console.Write ("  |" + space.PadRight (c - 1) + c + space.PadRight (40 - c));
+				if(c < 10)
+					Console.WriteLine (" |");
+				else
+					Console.WriteLine("|");
 				if( c == rack[9])
-					Console.WriteLine     (cardAmount + "                 " );
+					Console.WriteLine     (space.PadRight(cardAmount+6) + cardAmount);
 			}
 		}
 	}
