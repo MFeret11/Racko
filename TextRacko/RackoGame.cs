@@ -104,7 +104,35 @@ namespace TextRacko
 
 						Console.WriteLine ("Player 1 Rack:");
 						foreach (int c in player1) {
-							Console.WriteLine (c);
+							if( c == player1[0])
+								Console.WriteLine ("0");
+							if(c <= 5)
+								Console.WriteLine ("  |"+ c +"           |");
+							if(c > 5 && c <= 9)
+								Console.WriteLine ("  |"+ c +"           |");
+							if(c == 10)
+								Console.WriteLine ("  | "+ c+ "          |");
+							if(c > 10 && c <= 15)
+								Console.WriteLine ("  |  " + c+ "        |");
+							if(c > 15 && c <= 20)
+								Console.WriteLine ("  |   " + c+ "       |");
+							if(c > 20 && c <= 25)
+								Console.WriteLine ("  |    " + c+ "      |");
+							if(c > 25 && c <= 30)
+								Console.WriteLine ("  |     " + c+ "     |");
+							if(c > 30 && c <= 35)
+								Console.WriteLine ("  |      " + c+ "    |");
+							if(c > 35 && c <= 40)
+								Console.WriteLine ("  |       " + c+ "   |");
+							if(c > 40 && c <= 45)
+								Console.WriteLine ("  |        " + c+ "  |");
+							if(c > 45 && c <= 50)
+								Console.WriteLine ("  |         " + c+ " |");
+							if (c > 50)
+								Console.WriteLine ("  |          " + c+ "|");
+							if( c == player1[9])
+								Console.WriteLine     (cardAmount + "                 " );
+
 						}
 						Console.WriteLine ("-----------------------");
 						Console.WriteLine ("Options: Press number in brackets.");
