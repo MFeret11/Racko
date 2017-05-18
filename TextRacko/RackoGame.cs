@@ -103,37 +103,9 @@ namespace TextRacko
 						Console.WriteLine ("-----------------------");
 
 						Console.WriteLine ("Player 1 Rack:");
-						foreach (int c in player1) {
-							if( c == player1[0])
-								Console.WriteLine ("0");
-							if(c <= 5)
-								Console.WriteLine ("  |"+ c +"           |");
-							if(c > 5 && c <= 9)
-								Console.WriteLine ("  |"+ c +"           |");
-							if(c == 10)
-								Console.WriteLine ("  | "+ c+ "          |");
-							if(c > 10 && c <= 15)
-								Console.WriteLine ("  |  " + c+ "        |");
-							if(c > 15 && c <= 20)
-								Console.WriteLine ("  |   " + c+ "       |");
-							if(c > 20 && c <= 25)
-								Console.WriteLine ("  |    " + c+ "      |");
-							if(c > 25 && c <= 30)
-								Console.WriteLine ("  |     " + c+ "     |");
-							if(c > 30 && c <= 35)
-								Console.WriteLine ("  |      " + c+ "    |");
-							if(c > 35 && c <= 40)
-								Console.WriteLine ("  |       " + c+ "   |");
-							if(c > 40 && c <= 45)
-								Console.WriteLine ("  |        " + c+ "  |");
-							if(c > 45 && c <= 50)
-								Console.WriteLine ("  |         " + c+ " |");
-							if (c > 50)
-								Console.WriteLine ("  |          " + c+ "|");
-							if( c == player1[9])
-								Console.WriteLine     (cardAmount + "                 " );
 
-						}
+						printRack (player1);
+
 						Console.WriteLine ("-----------------------");
 						Console.WriteLine ("Options: Press number in brackets.");
 
@@ -149,18 +121,8 @@ namespace TextRacko
 							String removeCard = Console.ReadLine ().ToUpper ().Trim ();
 							int numberToRemove;
 							Int32.TryParse (removeCard, out numberToRemove);
-							//player gets top discarded card
-							if (player1.Contains (numberToRemove)) {
-								//add card at pos0 to playerhand
-								player1 [player1.IndexOf (numberToRemove)] = discardDeck.ElementAt (discardDeck.Count () - 1);
-								//remove card from hand and from discarded deck
-								player1.Remove (numberToRemove);
-								discardDeck.RemoveAt (discardDeck.Count () - 1);
-								//add card back to discard deck.
-								discardDeck.Add (numberToRemove);
-							}
+							drawFromDiscard (player1,numberToRemove,discardDeck);
 
-							//add case of bad input TODO
 						} else if (entry == "2") { //draw from deck
 							Console.Write ("OK. Card Drawn is: " + deck.ElementAt (0) + " -- Enter card you'd like to replace: ");
 							string replace = Console.ReadLine ();
@@ -172,7 +134,9 @@ namespace TextRacko
 								player1.Remove (number3);
 								deck.RemoveAt (0);
 								discardDeck.Add (number3);
-							}
+							}else
+							Console.WriteLine ("BAD ENTRY");
+
 						} else if (entry == "3") { //else swap 2 cards.
 							Console.Write ("OK. Enter 2 cards you'd like switch - Card 1: ");
 							string switchNums = Console.ReadLine ();
@@ -185,13 +149,16 @@ namespace TextRacko
 
 							if (player1.Contains (number) && player1.Contains (number2)) {
 								swap (player1, player1.IndexOf (number), player1.IndexOf (number2));
-							}
+							}else	
+								Console.WriteLine ("BAD ENTRY");
 						}
 							
 						if (IsSorted (player1)) {
 							Console.WriteLine ("\n-----------------------");
+							printRack (player1);
+							Console.WriteLine ("\n-----------------------");
 							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
-							Console.WriteLine ("Cards are in ascending order: You win!!!");
+							Console.WriteLine ("Cards are in ascending order: Good  job!!!");
 							if (turn <= 100)
 								Console.WriteLine ("Your score: " + (100 - turn));
 							else
@@ -200,11 +167,7 @@ namespace TextRacko
 
 						}
 
-
 						Console.WriteLine ("-----------------------");
-
-
-
 
 
 //					Console.WriteLine ("Player2hand:");
@@ -254,6 +217,21 @@ namespace TextRacko
 		}
 
 
+		public static void drawFromDiscard(List<int> rack, int numberToRemove, List<int> discardDeck){
+			//player gets top discarded card
+			if (rack.Contains (numberToRemove)) {
+				//add card at pos0 to playerhand
+				rack [rack.IndexOf (numberToRemove)] = discardDeck.ElementAt (discardDeck.Count () - 1);
+				//remove card from hand and from discarded deck
+				rack.Remove (numberToRemove);
+				discardDeck.RemoveAt (discardDeck.Count () - 1);
+				//add card back to discard deck.
+				discardDeck.Add (numberToRemove);
+			}else
+				Console.WriteLine ("BAD ENTRY");
+		}
+
+
 		public static List<int> shuffleDeck (List<int> list)
 		{
 			//shuffle deck
@@ -285,6 +263,39 @@ namespace TextRacko
 
 		public static void PlayGame ()
 		{
+		}
+
+		public static void printRack(List<int> rack){
+			foreach (int c in rack) {
+				if( c == rack[0])
+					Console.WriteLine ("0");
+				if(c <= 5)
+					Console.WriteLine ("  |"+ c +"        |");
+				if(c > 5 && c <= 9)
+					Console.WriteLine ("  |"+ c +"        |");
+				if(c == 10)
+					Console.WriteLine ("  | "+ c+ "       |");
+				if(c > 10 && c <= 15)
+					Console.WriteLine ("  |  " + c+ "     |");
+				if(c > 15 && c <= 20)
+					Console.WriteLine ("  |   " + c+ "    |");
+				if(c > 20 && c <= 25)
+					Console.WriteLine ("  |    " + c+ "   |");
+				if(c > 25 && c <= 30)
+					Console.WriteLine ("  |     " + c+ "  |");
+				if(c > 30 && c <= 35)
+					Console.WriteLine ("  |      " + c+ " |");
+				if(c > 35 && c <= 40)
+					Console.WriteLine ("  |       " + c+ "|");
+//				if(c > 40 && c <= 45)
+//					Console.WriteLine ("  |        " + c+ "  |");
+//				if(c > 45 && c <= 50)
+//					Console.WriteLine ("  |         " + c+ " |");
+//				if (c > 50)
+//					Console.WriteLine ("  |          " + c+ "|");
+				if( c == rack[9])
+					Console.WriteLine     (cardAmount + "                 " );
+			}
 		}
 	}
 }
