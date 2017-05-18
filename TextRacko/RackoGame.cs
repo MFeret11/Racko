@@ -19,7 +19,7 @@ namespace TextRacko
 		private const int NUM_OF_CARDS4 = 60;
 		private static int cardAmount = 0;
 		private const int MAXROUNDS = 1500;
-		private static int turn = 0;
+		private static int turn = 1;
 
 		static RackoGame ()
 		{
@@ -124,6 +124,7 @@ namespace TextRacko
 							drawFromDiscard (player1,numberToRemove,discardDeck);
 
 						} else if (entry == "2") { //draw from deck
+							if(deck.Any()){
 							Console.Write ("OK. Card Drawn is: " + deck.ElementAt (0) + " -- Enter card you'd like to replace: ");
 							string replace = Console.ReadLine ();
 							int number3;
@@ -136,7 +137,8 @@ namespace TextRacko
 								discardDeck.Add (number3);
 							}else
 							Console.WriteLine ("BAD ENTRY");
-
+							}//no cards left in deck.
+							Console.WriteLine("No cards left in deck.");
 						} else if (entry == "3") { //else swap 2 cards.
 							Console.Write ("OK. Enter 2 cards you'd like switch - Card 1: ");
 							string switchNums = Console.ReadLine ();
@@ -160,7 +162,7 @@ namespace TextRacko
 							Console.WriteLine ("\nBINGO BANGO RACKO!!!!");
 							Console.WriteLine ("Cards are in ascending order: Good  job!!!");
 							if (turn <= 100)
-								Console.WriteLine ("Your score: " + (100 - turn) + ". You took " + turn + "turns to achieve racko.");
+								Console.WriteLine ("Your score: " + (100 - turn) + ". You took " + turn + " turns to achieve racko.");
 							else
 								Console.WriteLine ("Your score is 0 - better luck next time!");
 							win = true;
